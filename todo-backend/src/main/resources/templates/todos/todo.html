@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo List</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    th, td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    .center {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .form-container, .filter-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container input, .form-container select, .form-container button,
+    .filter-container select, .filter-container button {
+      padding: 10px;
+      margin-top: 10px;
+      width: calc(100% - 22px); /* Full width minus padding */
+      box-sizing: border-box;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin-top: 10px;
+      color: white;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    .button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Todo List</h1>
+
+<!-- Add Todo Button -->
+<div class="center">
+  <a href="#" th:href="@{/todos/add/{memberId}(memberId=${memberId})}" class="button">Add New Todo</a>
+</div>
+
+<!-- Filter Form -->
+<div class="filter-container">
+  <h2>Filter Todos</h2>
+  <form id="filterForm" action="#" th:action="@{/todos/{memberId}(memberId=${memberId})}" th:method="get">
+    <label for="filterCategory">Category:</label>
+    <select id="filterCategory" name="category">
+      <option value="All" th:selected="${selectedCategory == 'All'}">All</option>
+      <option value="in-progress" th:selected="${selectedCategory == 'in-progress'}">In Progress</option>
+      <option value="done" th:selected="${selectedCategory == 'done'}">Done</option>
+      <option value="pending" th:selected="${selectedCategory == 'pending'}">Pending</option>
+    </select>
+    <input type="hidden" id="memberId" th:value="${memberId}">
+  </form>
+</div>
+
+<!-- Todo List Table -->
+<table>
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Category</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Thymeleaf를 사용하여 Todo 리스트 출력 -->
+  <tr th:each="todo, status : ${todos}">
+    <td th:text="${status.index + 1}">1</td>
+    <td th:text="${todo.title}">Task Title</td>
+    <td th:text="${todo.description}">Task Description</td>
+    <td th:text="${todo.category.name}">Category Name</td>
+    <td>
+      <!-- Update -->
+      <form action="#" th:action="@{/todos/update/{memberId}/{id}(memberId=${memberId}, id=${todo.id})}" th:method="get" style="display: inline;">
+        <button type="submit">Update</button>
+      </form>
+
+      <!-- Delete -->
+      <form action="#" th:action="@{/todos/delete/{memberId}/{id}(memberId=${memberId}, id=${todo.id})}" th:method="post" style="display: inline;">
+        <button type="submit">Delete</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="center">
+  <p>Total Tasks: <span th:text="${#lists.size(todos)}">0</span></p>
+</div>
+
+</body>
+
+<script>
+  document.getElementById('filterCategory').addEventListener('change', function() {
+    const category = this.value;
+    const form = document.getElementById('filterForm');
+    const memberId = document.getElementById('memberId').value;
+
+    // Update the form's action URL with the selected category
+    form.action = '/todos/' + encodeURIComponent(memberId) + '?category=' + encodeURIComponent(category);
+
+    // Submit the form
+    form.submit();
+  });
+</script>
+</html>

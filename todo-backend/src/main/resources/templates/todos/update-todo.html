@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Todo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container input, .form-container select, .form-container button {
+      padding: 10px;
+      margin-top: 10px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Update Todo</h1>
+
+<div class="form-container">
+  <form action="#" th:action="@{/todos/update/{memberId}/{id}(memberId=${memberId}, id=${todo.id})}" th:method="post">
+    <input type="hidden" name="id" th:value="${todo.id}">
+
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" th:value="${todo.title}" required>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" th:value="${todo.description}">
+
+    <label for="category">Category:</label>
+    <select id="category" name="category" required>
+      <option th:selected="${todo.category == 'in-progress'}" value="in-progress">In Progress</option>
+      <option th:selected="${todo.category == 'done'}" value="done">Done</option>
+      <option th:selected="${todo.category == 'pending'}" value="pending">Pending</option>
+    </select>
+
+    <button type="submit">Update Todo</button>
+  </form>
+</div>
+
+</body>
+</html>
