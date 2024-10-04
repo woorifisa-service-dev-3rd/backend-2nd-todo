@@ -23,7 +23,7 @@ const SignUpPage = () => {
     setPasswordError("");
     console.log("Signup:", email, name, password);
     try {
-      const response = await fetch("http://localhost:8080/api/signup", {
+      const response = await fetch("http://43.202.33.94:8080/api/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

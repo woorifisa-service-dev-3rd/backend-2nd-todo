@@ -11,7 +11,7 @@ const TodoItem = ({ todo, onAdd, onUpdate, memberId }) => {
 
   function del() {
     if(window.confirm('삭제 하시겠습니까?')) {
-      fetch(`http://localhost:8080/api/delete/members/${memberId}/todos/${todos.id}`, {
+      fetch(`http://43.202.33.94:8080/api/delete/members/${memberId}/todos/${todos.id}`, {
         method: 'DELETE',
       }).then(res=>{
         if(res.ok) {

@@ -15,7 +15,7 @@ const TodoForm = ({ onClose, children, todo, memberId }) => {
 
         if (isNewTodoForm(children)) {
             // console.log(memberId);
-            const response = await fetch(`http://localhost:8080/api/members/${memberId}/todos`, {
+            const response = await fetch(`http://43.202.33.94:8080/api/members/${memberId}/todos`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const TodoForm = ({ onClose, children, todo, memberId }) => {
 
         } else {
             console.log(memberId);
-            const response = await fetch(`http://localhost:8080/api/update/members/${memberId}/todos/${todo.id}`, {
+            const response = await fetch(`http://43.202.33.94:8080/api/update/members/${memberId}/todos/${todo.id}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

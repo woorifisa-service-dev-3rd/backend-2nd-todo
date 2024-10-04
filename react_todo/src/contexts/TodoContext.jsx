@@ -9,7 +9,7 @@ export const TodoProvider = ({ memberId, children }) => {
     useEffect(() => {
         const fetchTodos = async () => {
             try {
-                const response = await fetch(`http://localhost:8080/api/members/${memberId}/todos`);
+                const response = await fetch(`http://43.202.33.94:8080/api/members/${memberId}/todos`);
                 const data = await response.json();
                 dispatch({ type: 'SET_TODOS', todos: data }); // 받아온 todos를 reducer에 전달
             } catch (error) {
