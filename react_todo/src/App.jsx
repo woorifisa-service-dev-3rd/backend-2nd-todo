@@ -1,15 +1,15 @@
 import {BrowserRouter, Route, Routes } from "react-router-dom";
 import TodoMain from "@/components/todos/TodoMain";
 import LoginPage from "@/components/members/LoginPage";
-import SignupPage from "@/components/members/SignupPage";
+import SignUpPage from "@/components/members/SignUpPage";
 
 const App = () => {
   return (
     <BrowserRouter>
     <Routes>
-      <Route path="/login" element={<LoginPage />}/>
+      <Route path="/" element={<LoginPage />}/>
       <Route path="/members/:memberId/todos" element={<TodoMain />}/>
-      <Route path="/signup" element={<SignupPage/>}/>
+      <Route path="/signup" element={<SignUpPage/>}/>
     </Routes>
     </BrowserRouter>
   );

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignupPage = () => {
+const SignUpPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -117,7 +117,7 @@ const SignupPage = () => {
           Already have an account?{" "}
           <button
             className="text-blue-500 hover:text-blue-700 focus:outline-none"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
           >
             Log in
           </button>
@@ -127,4 +127,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default SignUpPage;
